@@ -1,0 +1,34 @@
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+# Initialize the count variable
+count = 0
+
+@app.route('/get_count', methods=['GET'])
+def get_count():
+    """
+    Endpoint to retrieve the current count value.
+    """
+    return jsonify({"count": count})
+
+@app.route('/increment_count', methods=['POST'])
+def increment_count():
+    """
+    Endpoint to increment the count value.
+    """
+    global count
+    count += 1
+    return jsonify({"message": "Count incremented", "count": count})
+
+@app.route('/reset_count', methods=['POST'])
+def reset_count():
+    """
+    Endpoint to reset the count to zero.
+    """
+    global count
+    count = 0
+    return jsonify({"message": "Count reset", "count": count})
+
+if __name__ == '__main__':
+    app.run(debug=True)
